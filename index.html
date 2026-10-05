@@ -101,7 +101,7 @@
     ::selection { background: var(--yellow); color: #081421; }
     a { color: inherit; }
     img, svg { max-width: 100%; }
-    button, input { font: inherit; }
+    button, input, select, textarea { font: inherit; }
 
     .skip-link {
       position: fixed;
@@ -134,6 +134,14 @@
       backdrop-filter: blur(12px);
     }
     .studio-nav .container { min-height: 66px; }
+    .nav-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: .7rem;
+      color: inherit;
+      text-decoration: none;
+    }
+    .nav-logo { width: 38px; height: 38px; flex: 0 0 auto; }
     .nav-note {
       font: 600 .72rem/1 "IBM Plex Mono", monospace;
       letter-spacing: .08em;
@@ -471,6 +479,56 @@
     @media (prefers-color-scheme: dark) { .accordion-button::after { filter: invert(1); } }
     .accordion-body { color: var(--muted); padding: 1.25rem 1.35rem 1.6rem; }
 
+    .contact-section { padding-top: 2rem; }
+    .contact-shell {
+      display: grid;
+      grid-template-columns: .82fr 1.18fr;
+      background: var(--ink);
+      color: var(--bg);
+      border: 2px solid var(--ink);
+      box-shadow: var(--shadow);
+    }
+    .contact-copy {
+      padding: clamp(2rem, 5vw, 4rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 2.5rem;
+    }
+    .contact-copy h2 { font-size: clamp(2.6rem, 5vw, 4.6rem); }
+    .contact-copy p { max-width: 42ch; margin: 1.2rem 0 0; color: color-mix(in srgb, var(--bg), transparent 18%); }
+    .contact-details { padding-top: 1.35rem; border-top: 1px solid color-mix(in srgb, var(--bg), transparent 68%); font: 500 .78rem/1.7 "IBM Plex Mono", monospace; }
+    .contact-form { padding: clamp(2rem, 5vw, 4rem); background: var(--surface); color: var(--ink); }
+    .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.1rem; }
+    .form-field { display: grid; gap: .45rem; }
+    .form-field.full { grid-column: 1 / -1; }
+    .form-field label { font-size: .86rem; font-weight: 700; }
+    .form-control-studio {
+      width: 100%;
+      min-height: 48px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: var(--bg);
+      color: var(--ink);
+      padding: .72rem .82rem;
+      outline: none;
+    }
+    textarea.form-control-studio { min-height: 132px; resize: vertical; }
+    .form-control-studio:focus { border-color: var(--aqua); box-shadow: 0 0 0 3px color-mix(in srgb, var(--aqua), transparent 72%); }
+    .contact-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .85rem; margin-top: 1.2rem; }
+    .contact-submit {
+      min-height: 48px;
+      border: 2px solid var(--ink);
+      border-radius: 7px;
+      background: var(--ink);
+      color: var(--bg);
+      padding: .7rem 1.1rem;
+      font-weight: 700;
+    }
+    .contact-submit:hover, .contact-submit:focus { background: var(--coral); border-color: var(--coral); color: #fff; }
+    .contact-note { margin: 0; color: var(--muted); font-size: .78rem; max-width: 38ch; }
+    .contact-status { min-height: 1.5rem; margin: .65rem 0 0; color: var(--aqua); font-size: .84rem; }
+
     footer {
       background: var(--surface);
       border-top: 1px solid var(--line);
@@ -495,7 +553,7 @@
       .package-grid { grid-template-columns: 1fr; }
       .package.featured { transform: none; }
       .package > p { min-height: auto; }
-      .brief-shell { grid-template-columns: 1fr; }
+      .brief-shell, .contact-shell { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 767.98px) {
@@ -509,20 +567,22 @@
       .service:nth-child(n) { grid-column: 1 / -1; min-height: 235px; border-radius: 10px; }
       .process-step { grid-template-columns: 46px 1fr; gap: .85rem; }
       .process-step p { grid-column: 2; }
-      .choice-grid { grid-template-columns: 1fr; }
+      .choice-grid, .form-grid { grid-template-columns: 1fr; }
+      .form-field.full { grid-column: auto; }
       .footer-grid { grid-template-columns: 1fr; }
       .footer-note { text-align: left; }
     }
 
     @media (max-width: 430px) {
       h1 { font-size: clamp(2.75rem, 14vw, 4.2rem); }
+      .nav-note { display: none; }
       .hero-actions .btn-studio { width: 100%; }
       .hero-canvas { min-height: 390px; }
       .mock-cards { margin-top: 3.6rem; }
       .mock-card { min-height: 72px; }
       .code-card { padding: .85rem; bottom: -3px; }
       .canvas-stamp { display: none; }
-      .brief-copy, .brief-form { padding: 1.6rem; }
+      .brief-copy, .brief-form, .contact-copy, .contact-form { padding: 1.6rem; }
       .brief-actions { flex-direction: column; }
       .brief-action { width: 100%; }
     }
@@ -540,7 +600,10 @@
 
   <nav class="navbar navbar-expand-lg studio-nav" aria-label="Primary navigation">
     <div class="container">
-      <span class="nav-note">Design × Development</span>
+      <a class="nav-brand" href="#main" aria-label="79 Web Span Studio home">
+        <img class="nav-logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsbGVkYnk9InRpdGxlIGRlc2MiPgogIDx0aXRsZSBpZD0idGl0bGUiPjc5IFdlYiBTcGFuIFN0dWRpbyBsb2dvPC90aXRsZT4KICA8ZGVzYyBpZD0iZGVzYyI+QSBkYXJrIHJvdW5kZWQgc3F1YXJlIHdpdGggY29yYWwgYW5kIGFxdWEgYnJhY2tldHMgc3Vycm91bmRpbmcgdGhlIG51bWJlciA3OS48L2Rlc2M+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTUiIGZpbGw9IiMwQjE2MjgiLz4KICA8cGF0aCBkPSJNMTkgMTggMTAgMzJsOSAxNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNTNENkQwIiBzdHJva2Utd2lkdGg9IjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgogIDxwYXRoIGQ9Im00NSAxOCA5IDE0LTkgMTQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0ZGNjM0NyIgc3Ryb2tlLXdpZHRoPSI1IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KICA8dGV4dCB4PSIzMiIgeT0iMzgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCxIZWx2ZXRpY2Esc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMCIgZm9udC13ZWlnaHQ9IjgwMCIgZmlsbD0iI0ZGRkZGRiI+Nzk8L3RleHQ+Cjwvc3ZnPgo=" alt="">
+        <span class="nav-note">Design × Development</span>
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#siteNav" aria-controls="siteNav" aria-expanded="false" aria-label="Toggle navigation">
         <svg width="23" height="23" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       </button>
@@ -550,6 +613,7 @@
           <li class="nav-item"><a class="nav-link" href="#process">Process</a></li>
           <li class="nav-item"><a class="nav-link" href="#packages">Packages</a></li>
           <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
           <li class="nav-item"><a class="nav-link nav-cta" href="#brief">Start a brief</a></li>
         </ul>
       </div>
@@ -793,6 +857,64 @@
         </div>
       </div>
     </section>
+
+    <section id="contact" class="contact-section">
+      <div class="container">
+        <div class="contact-shell reveal">
+          <div class="contact-copy">
+            <div>
+              <div class="section-kicker" style="color:var(--yellow)">Start a conversation</div>
+              <h2>Have a project in mind?</h2>
+              <p>Share the essentials—what you need, where you are now, and what a successful launch would look like.</p>
+            </div>
+            <div class="contact-details">Landing pages • business websites • full-stack apps<br>WordPress • integrations • launch • maintenance</div>
+          </div>
+          <form class="contact-form" id="contactForm">
+            <div class="form-grid">
+              <div class="form-field">
+                <label for="contactName">Your name</label>
+                <input class="form-control-studio" id="contactName" name="name" type="text" autocomplete="name" aria-label="Your name" required>
+              </div>
+              <div class="form-field">
+                <label for="contactEmail">Email address</label>
+                <input class="form-control-studio" id="contactEmail" name="email" type="email" autocomplete="email" aria-label="Email address" required>
+              </div>
+              <div class="form-field">
+                <label for="contactProject">Project type</label>
+                <select class="form-control-studio" id="contactProject" name="project" aria-label="Project type" required>
+                  <option value="">Choose one</option>
+                  <option>Landing page</option>
+                  <option>Business website</option>
+                  <option>Full-stack web app</option>
+                  <option>WordPress website</option>
+                  <option>CRM or payment integration</option>
+                  <option>Launch or maintenance</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label for="contactTimeline">Ideal timeline</label>
+                <select class="form-control-studio" id="contactTimeline" name="timeline" aria-label="Ideal timeline" required>
+                  <option value="">Choose one</option>
+                  <option>As soon as possible</option>
+                  <option>Within a month</option>
+                  <option>Within three months</option>
+                  <option>Still exploring</option>
+                </select>
+              </div>
+              <div class="form-field full">
+                <label for="contactMessage">Tell us about the project</label>
+                <textarea class="form-control-studio" id="contactMessage" name="message" aria-label="Tell us about the project" placeholder="A few details about your goals, pages, features, or current website…" required></textarea>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <button class="contact-submit" type="submit">Copy inquiry</button>
+              <p class="contact-note">Your details stay in this page. Copy the inquiry to share through your preferred contact channel.</p>
+            </div>
+            <p class="contact-status" id="contactStatus" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer>
@@ -812,6 +934,8 @@
       var output = document.getElementById('briefOutput');
       var status = document.getElementById('copyStatus');
       var progress = document.querySelector('.progress-line');
+      var contactForm = document.getElementById('contactForm');
+      var contactStatus = document.getElementById('contactStatus');
 
       function selected(name) {
         var el = form.querySelector('input[name="' + name + '"]:checked');
@@ -865,6 +989,36 @@
         document.body.removeChild(anchor);
         URL.revokeObjectURL(url);
         status.textContent = 'Brief downloaded as a text file.';
+      });
+
+      contactForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        var data = new FormData(contactForm);
+        var inquiry = 'PROJECT INQUIRY — 79 WEB SPAN STUDIO\n\n' +
+          'Name: ' + data.get('name') + '\n' +
+          'Email: ' + data.get('email') + '\n' +
+          'Project: ' + data.get('project') + '\n' +
+          'Timeline: ' + data.get('timeline') + '\n\n' +
+          'Project details:\n' + data.get('message');
+
+        function showContactResult(copied) {
+          contactStatus.textContent = copied ? 'Inquiry copied. It is ready to paste into your preferred email or message app.' : 'Copy was unavailable. Select and copy your details from the fields above.';
+        }
+
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(inquiry).then(function () { showContactResult(true); }).catch(function () { showContactResult(false); });
+        } else {
+          var contactArea = document.createElement('textarea');
+          contactArea.value = inquiry;
+          contactArea.setAttribute('readonly', '');
+          contactArea.style.position = 'fixed';
+          contactArea.style.opacity = '0';
+          document.body.appendChild(contactArea);
+          contactArea.select();
+          var contactCopied = document.execCommand('copy');
+          document.body.removeChild(contactArea);
+          showContactResult(contactCopied);
+        }
       });
 
       function updateProgress() {
