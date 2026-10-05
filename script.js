@@ -1,11 +1,9 @@
-/* 79 Web Span Studio — loads the shared header/footer partials, then starts the site. */
+/* 79 Web Span Studio — loads the shared header/footer partials around the body content, then starts the site. */
 (function () {
-  function loadInto(id, url) {
+  function loadFragment(url) {
     return fetch(url).then(function (res) {
       if (!res.ok) throw new Error("Could not load " + url);
       return res.text();
-    }).then(function (html) {
-      document.getElementById(id).innerHTML = html;
     });
   }
 
@@ -176,10 +174,14 @@
   }
 
   function start() {
-    var hasSlots = document.getElementById("site-header") && document.getElementById("site-footer");
-    if (hasSlots && window.fetch) {
-      Promise.all([loadInto("site-header", "header.html"), loadInto("site-footer", "footer.html")])
-        .then(initSite)
+    var main = document.getElementById("main");
+    if (main && window.fetch) {
+      Promise.all([loadFragment("header.html"), loadFragment("footer.html")])
+        .then(function (parts) {
+          main.insertAdjacentHTML("beforebegin", parts[0]);
+          main.insertAdjacentHTML("afterend", parts[1]);
+          initSite();
+        })
         .catch(function () { initSite(); });
     } else {
       initSite();
