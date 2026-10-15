@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head></head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="progress-line" aria-hidden="true"></div>
+
+  <main id="main">
+<section id="brief" class="brief-section">
+      <div class="container">
+        <div class="brief-shell reveal">
+          <div class="brief-copy">
+            <div class="section-kicker" style="color:#fff;opacity:.8">Project brief builder</div>
+            <h2>Turn your idea into a clear starting point.</h2>
+            <p>Choose a few details and get a concise project brief you can copy or download. It stays in this page only and is not submitted anywhere.</p>
+            <div class="brief-benefit">A useful first brief answers three things:<br>what you need • what it should achieve • how soon you want it</div>
+          </div>
+          <form class="brief-form" id="briefForm">
+            <fieldset>
+              <legend>What are you building?</legend>
+              <div class="choice-grid">
+                <div><input class="choice-input" type="radio" name="project" id="projectLanding" value="a focused landing page" checked><label class="choice-label" for="projectLanding">Landing page</label></div>
+                <div><input class="choice-input" type="radio" name="project" id="projectBusiness" value="a complete business website"><label class="choice-label" for="projectBusiness">Business website</label></div>
+                <div><input class="choice-input" type="radio" name="project" id="projectRefresh" value="a redesign of an existing website"><label class="choice-label" for="projectRefresh">Website refresh</label></div>
+                <div><input class="choice-input" type="radio" name="project" id="projectUI" value="a custom dashboard or web-app interface"><label class="choice-label" for="projectUI">Dashboard / app UI</label></div>
+                <div><input class="choice-input" type="radio" name="project" id="projectFullStack" value="a full-stack React application with a Node.js or Python backend"><label class="choice-label" for="projectFullStack">Full-stack web app</label></div>
+                <div><input class="choice-input" type="radio" name="project" id="projectWordPress" value="a flexible WordPress website"><label class="choice-label" for="projectWordPress">WordPress website</label></div>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>What matters most?</legend>
+              <div class="choice-grid">
+                <div><input class="choice-input" type="radio" name="goal" id="goalLeads" value="generate more qualified inquiries" checked><label class="choice-label" for="goalLeads">More inquiries</label></div>
+                <div><input class="choice-input" type="radio" name="goal" id="goalCredibility" value="build trust and explain the offer clearly"><label class="choice-label" for="goalCredibility">Build credibility</label></div>
+                <div><input class="choice-input" type="radio" name="goal" id="goalLaunch" value="launch a new offer with confidence"><label class="choice-label" for="goalLaunch">Launch an offer</label></div>
+                <div><input class="choice-input" type="radio" name="goal" id="goalExperience" value="improve the overall user experience"><label class="choice-label" for="goalExperience">Improve usability</label></div>
+                <div><input class="choice-input" type="radio" name="goal" id="goalCRM" value="connect leads and customer activity to a CRM"><label class="choice-label" for="goalCRM">Connect a CRM</label></div>
+                <div><input class="choice-input" type="radio" name="goal" id="goalPayments" value="accept secure online payments"><label class="choice-label" for="goalPayments">Accept payments</label></div>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Ideal pace?</legend>
+              <div class="choice-grid">
+                <div><input class="choice-input" type="radio" name="pace" id="paceFast" value="as soon as the scope and content are ready"><label class="choice-label" for="paceFast">Ready to start</label></div>
+                <div><input class="choice-input" type="radio" name="pace" id="paceMonth" value="within the next month" checked><label class="choice-label" for="paceMonth">Within a month</label></div>
+                <div><input class="choice-input" type="radio" name="pace" id="paceQuarter" value="within the next few months"><label class="choice-label" for="paceQuarter">In a few months</label></div>
+                <div><input class="choice-input" type="radio" name="pace" id="paceExplore" value="after an exploratory planning phase"><label class="choice-label" for="paceExplore">Still exploring</label></div>
+              </div>
+            </fieldset>
+            <div class="brief-output" id="briefOutput" aria-live="polite"></div>
+            <div class="brief-actions">
+              <button type="button" class="brief-action" id="copyBrief">Copy brief</button>
+              <button type="button" class="brief-action" id="downloadBrief">Download .txt</button>
+            </div>
+            <p class="copy-status" id="copyStatus" role="status"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

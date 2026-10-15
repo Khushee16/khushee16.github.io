@@ -31,6 +31,7 @@
         return text;
       }
 
+      if (form && output && status) {
       form.addEventListener('change', buildBrief);
       buildBrief();
 
@@ -68,7 +69,9 @@
         URL.revokeObjectURL(url);
         status.textContent = 'Brief downloaded as a text file.';
       });
+      }
 
+      if (contactForm && contactStatus) {
       contactForm.addEventListener('submit', function (event) {
         event.preventDefault();
         var data = new FormData(contactForm);
@@ -98,6 +101,7 @@
           showContactResult(contactCopied);
         }
       });
+      }
 
       function updateProgress() {
         var doc = document.documentElement;
@@ -170,6 +174,24 @@
             }
           }
         });
+      });
+
+      var pageTitles = {
+        'services.html': 'Services',
+        'process.html': 'Process',
+        'packages.html': 'Packages',
+        'brief.html': 'Start a brief',
+        'faq.html': 'FAQ',
+        'contact.html': 'Contact'
+      };
+      var currentPage = window.location.pathname.split('/').pop() || 'index.html';
+      if (pageTitles[currentPage]) {
+        document.title = pageTitles[currentPage] + ' \u2014 79 Web Span Studio';
+      }
+      document.querySelectorAll('#siteNav a[data-page]').forEach(function (navLink) {
+        if (navLink.getAttribute('data-page') === currentPage) {
+          navLink.classList.add('active');
+        }
       });
   }
 

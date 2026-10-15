@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head></head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="progress-line" aria-hidden="true"></div>
+
+  <main id="main">
+<section id="contact" class="contact-section">
+      <div class="container">
+        <div class="contact-shell reveal">
+          <div class="contact-copy">
+            <div>
+              <div class="section-kicker" style="color:var(--yellow)">Start a conversation</div>
+              <h2>Have a project in mind?</h2>
+              <p>Share the essentials—what you need, where you are now, and what a successful launch would look like.</p>
+            </div>
+            <div class="contact-details">Landing pages • business websites • full-stack apps<br>WordPress • integrations • launch • maintenance</div>
+          </div>
+          <form class="contact-form" id="contactForm">
+            <div class="form-grid">
+              <div class="form-field">
+                <label for="contactName">Your name</label>
+                <input class="form-control-studio" id="contactName" name="name" type="text" autocomplete="name" aria-label="Your name" required>
+              </div>
+              <div class="form-field">
+                <label for="contactEmail">Email address</label>
+                <input class="form-control-studio" id="contactEmail" name="email" type="email" autocomplete="email" aria-label="Email address" required>
+              </div>
+              <div class="form-field">
+                <label for="contactProject">Project type</label>
+                <select class="form-control-studio" id="contactProject" name="project" aria-label="Project type" required>
+                  <option value="">Choose one</option>
+                  <option>Landing page</option>
+                  <option>Business website</option>
+                  <option>Full-stack web app</option>
+                  <option>WordPress website</option>
+                  <option>CRM or payment integration</option>
+                  <option>Launch or maintenance</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label for="contactTimeline">Ideal timeline</label>
+                <select class="form-control-studio" id="contactTimeline" name="timeline" aria-label="Ideal timeline" required>
+                  <option value="">Choose one</option>
+                  <option>As soon as possible</option>
+                  <option>Within a month</option>
+                  <option>Within three months</option>
+                  <option>Still exploring</option>
+                </select>
+              </div>
+              <div class="form-field full">
+                <label for="contactMessage">Tell us about the project</label>
+                <textarea class="form-control-studio" id="contactMessage" name="message" aria-label="Tell us about the project" placeholder="A few details about your goals, pages, features, or current website…" required></textarea>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <button class="contact-submit" type="submit">Copy inquiry</button>
+              <p class="contact-note">Your details stay in this page. Copy the inquiry to share through your preferred contact channel.</p>
+            </div>
+            <p class="contact-status" id="contactStatus" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
