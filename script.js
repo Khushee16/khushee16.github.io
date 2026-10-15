@@ -176,6 +176,10 @@
   function start() {
     var main = document.getElementById("main");
     if (main && window.fetch) {
+      // Head content first so title, fonts and styles apply as early as possible.
+      loadFragment("head.html").then(function (html) {
+        document.head.insertAdjacentHTML("beforeend", html);
+      }).catch(function () {});
       Promise.all([loadFragment("header.html"), loadFragment("footer.html")])
         .then(function (parts) {
           main.insertAdjacentHTML("beforebegin", parts[0]);
