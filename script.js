@@ -1,12 +1,5 @@
-/* 79 Web Span Studio — loads the shared header/footer partials around the body content, then starts the site. */
+/* 79 Web Span Studio — site behavior. Head, header and footer are assembled server-side. */
 (function () {
-  function loadFragment(url) {
-    return fetch(url).then(function (res) {
-      if (!res.ok) throw new Error("Could not load " + url);
-      return res.text();
-    });
-  }
-
   function initSite() {
       var form = document.getElementById('briefForm');
       var output = document.getElementById('briefOutput');
@@ -176,47 +169,11 @@
         });
       });
 
-      var pageTitles = {
-        'services.html': 'Services',
-        'process.html': 'Process',
-        'packages.html': 'Packages',
-        'brief.html': 'Start a brief',
-        'faq.html': 'FAQ',
-        'contact.html': 'Contact'
-      };
-      var currentPage = window.location.pathname.split('/').pop() || 'index.html';
-      if (pageTitles[currentPage]) {
-        document.title = pageTitles[currentPage] + ' \u2014 79 Web Span Studio';
-      }
-      document.querySelectorAll('#siteNav a[data-page]').forEach(function (navLink) {
-        if (navLink.getAttribute('data-page') === currentPage) {
-          navLink.classList.add('active');
-        }
-      });
-  }
-
-  function start() {
-    var main = document.getElementById("main");
-    if (main && window.fetch) {
-      // Head content first so title, fonts and styles apply as early as possible.
-      loadFragment("head.html").then(function (html) {
-        document.head.insertAdjacentHTML("beforeend", html);
-      }).catch(function () {});
-      Promise.all([loadFragment("header.html"), loadFragment("footer.html")])
-        .then(function (parts) {
-          main.insertAdjacentHTML("beforebegin", parts[0]);
-          main.insertAdjacentHTML("afterend", parts[1]);
-          initSite();
-        })
-        .catch(function () { initSite(); });
-    } else {
-      initSite();
-    }
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", start);
+    document.addEventListener("DOMContentLoaded", initSite);
   } else {
-    start();
+    initSite();
   }
 })();
