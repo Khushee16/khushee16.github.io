@@ -8,6 +8,31 @@
       var contactForm = document.getElementById('contactForm');
       var contactStatus = document.getElementById('contactStatus');
 
+      var themeToggle = document.getElementById('themeToggle');
+      function getTheme() {
+        var saved = null;
+        try { saved = localStorage.getItem('sws-theme'); } catch (e) {}
+        if (saved === 'light' || saved === 'dark') return saved;
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      function paintThemeToggle(theme) {
+        if (!themeToggle) return;
+        var dark = theme === 'dark';
+        themeToggle.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+        themeToggle.setAttribute('aria-pressed', dark ? 'true' : 'false');
+      }
+      function setTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        try { localStorage.setItem('sws-theme', theme); } catch (e) {}
+        paintThemeToggle(theme);
+      }
+      if (themeToggle) {
+        paintThemeToggle(getTheme());
+        themeToggle.addEventListener('click', function () {
+          setTheme(getTheme() === 'dark' ? 'light' : 'dark');
+        });
+      }
+
       function selected(name) {
         var el = form.querySelector('input[name="' + name + '"]:checked');
         return el ? el.value : '';
