@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Expo Nails — Nail Salon in Glassboro, NJ</title>
+<meta name="description" content="Expo Nails, 808 Delsea Dr N, Glassboro NJ. Gel manicures, dip powder, spa pedicures, nail art & more. Walk-ins welcome.">
+<style>
+  :root{
+    --rose:#b5446e; --rose-dark:#8f2f54; --blush:#fbeef2; --cream:#fff9f6;
+    --ink:#33252c; --muted:#7a626c; --gold:#d4a24e; --line:#f3dde4;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:"Segoe UI",system-ui,-apple-system,sans-serif;color:var(--ink);background:var(--cream);line-height:1.6}
+  a{color:inherit}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+
+  /* draft ribbon */
+  .draft{background:#33252c;color:#fff;font-size:12.5px;text-align:center;padding:8px 12px;letter-spacing:.4px}
+  .draft b{color:var(--gold)}
+
+  header{background:rgba(255,249,246,.96);backdrop-filter:blur(8px);position:sticky;top:0;z-index:10;border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;max-width:1080px;margin:0 auto}
+  .brand{font-weight:800;font-size:20px;letter-spacing:.5px;color:var(--rose-dark)}
+  .brand small{display:block;font-size:11px;font-weight:600;letter-spacing:3px;color:var(--muted)}
+  .nav .call{background:var(--rose);color:#fff;text-decoration:none;padding:10px 20px;border-radius:999px;font-weight:700;font-size:14px}
+  .nav .call:hover{background:var(--rose-dark)}
+
+  .hero{background:linear-gradient(160deg,var(--blush) 0%,#fdf4f0 55%,var(--cream) 100%);padding:72px 0 64px;text-align:center}
+  .hero .eyebrow{display:inline-block;background:#fff;border:1px solid var(--line);color:var(--rose-dark);font-size:12.5px;font-weight:700;letter-spacing:2px;padding:7px 16px;border-radius:999px;margin-bottom:22px}
+  .hero h1{font-size:clamp(34px,6vw,58px);line-height:1.12;font-weight:800;color:#2b1d23;max-width:720px;margin:0 auto 16px}
+  .hero h1 em{font-style:normal;color:var(--rose)}
+  .hero p.sub{color:var(--muted);font-size:17px;max-width:560px;margin:0 auto 30px}
+  .rating{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:30px;font-size:15px;color:var(--muted)}
+  .stars{color:var(--gold);font-size:19px;letter-spacing:2px}
+  .ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .btn{display:inline-block;padding:14px 30px;border-radius:999px;font-weight:700;font-size:15px;text-decoration:none}
+  .btn.primary{background:var(--rose);color:#fff}
+  .btn.primary:hover{background:var(--rose-dark)}
+  .btn.ghost{border:2px solid var(--rose);color:var(--rose-dark);background:#fff}
+  .btn.ghost:hover{background:var(--blush)}
+
+  section{padding:64px 0}
+  .sec-title{text-align:center;margin-bottom:12px;font-size:clamp(24px,4vw,34px);font-weight:800;color:#2b1d23}
+  .sec-sub{text-align:center;color:var(--muted);max-width:560px;margin:0 auto 40px;font-size:16px}
+
+  .services{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px 24px;transition:transform .2s,box-shadow .2s}
+  .card:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(181,68,110,.12)}
+  .card .icon{font-size:30px;margin-bottom:12px}
+  .card h3{font-size:18px;margin-bottom:8px;color:var(--rose-dark)}
+  .card p{font-size:14.5px;color:var(--muted)}
+
+  .strip{background:#33252c;color:#f7e9ee;padding:56px 0}
+  .strip .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:24px;text-align:center}
+  .strip .num{font-size:32px;font-weight:800;color:var(--gold)}
+  .strip .lbl{font-size:14px;opacity:.85;margin-top:4px}
+  .strip blockquote{max-width:640px;margin:36px auto 0;text-align:center;font-style:italic;font-size:17px;opacity:.92}
+
+  .menu{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px;margin-top:8px}
+  .menu-cat{background:var(--cream);border:1px solid var(--line);border-radius:18px;padding:26px 24px}
+  .menu-cat h3{font-size:19px;color:var(--rose-dark);margin-bottom:4px}
+  .menu-cat .cat-note{font-size:13.5px;color:var(--muted);margin-bottom:16px}
+  .item{padding:13px 0;border-top:1px dashed var(--line)}
+  .item:first-of-type{border-top:none;padding-top:4px}
+  .item-head{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+  .item-head b{font-size:15.5px}
+  .price{font-size:13px;font-weight:700;color:var(--rose);white-space:nowrap}
+  .item p{font-size:14px;color:var(--muted);margin-top:3px}
+  .item .includes{font-size:13px;color:var(--muted);margin-top:5px}
+  .item .includes b{color:var(--ink);font-weight:600}
+  .menu-note{max-width:680px;margin:28px auto 0;text-align:center;font-size:14px;color:var(--muted);background:var(--blush);border:1px solid var(--line);border-radius:14px;padding:16px 20px}
+
+  .visit{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:36px;align-items:start}
+  .hours{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+  .hours th{background:var(--rose-dark);color:#fff;text-align:left;padding:12px 18px;font-size:15px}
+  .hours td{padding:11px 18px;border-top:1px solid var(--line);font-size:15px}
+  .hours td:last-child{text-align:right;font-weight:600}
+  .closed{color:var(--rose)}
+  .addr{background:#fff;border:1px solid var(--line);border-radius:16px;padding:30px}
+  .addr h3{font-size:19px;margin-bottom:10px;color:var(--rose-dark)}
+  .addr p{margin-bottom:14px;color:var(--muted);font-size:15.5px}
+  .addr .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+
+  .insta{background:var(--blush);text-align:center;padding:56px 20px}
+  .insta h2{font-size:clamp(22px,4vw,30px);margin-bottom:10px}
+  .insta p{color:var(--muted);margin-bottom:24px}
+
+  footer{background:#2b1d23;color:#cbb6bf;padding:34px 0;font-size:14px}
+  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+  footer .note{max-width:560px}
+  footer b{color:var(--gold)}
+  footer a{color:#fff}
+
+  @media(max-width:560px){ .nav .call{padding:9px 14px;font-size:13px} section{padding:48px 0} }
+</style>
+</head>
+<body>
+
+<div class="draft">✨ <b>DRAFT MOCKUP</b> — free concept homepage for Expo Nails, designed by 79 Web Span Studio. Not affiliated with the salon.</div>
+
+<header>
+  <div class="nav">
+    <div class="brand">EXPO NAILS<small>GLASSBORO · NJ</small></div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <a href="#menu" style="text-decoration:none;font-weight:700;font-size:14px;color:var(--rose-dark)">Menu</a>
+      <a class="call" href="tel:+18562188818">📞 (856) 218-8818</a>
+    </div>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <span class="eyebrow">NAIL SALON · GLASSBORO, NJ</span>
+    <h1>Nails that make you <em>feel like you</em></h1>
+    <p class="sub">Gel manicures, dip powder, spa pedicures, custom nail art and more — by friendly techs who take their time and get the details right.</p>
+    <div class="rating"><span class="stars">★★★★★</span><span><b>4.3</b> from 78 Google reviews · Walk-ins welcome</span></div>
+    <div class="ctas">
+      <a class="btn primary" href="tel:+18562188818">Call to Book</a>
+      <a class="btn ghost" href="#menu">See Full Menu</a>
+      <a class="btn ghost" href="https://www.google.com/maps/search/?api=1&query=Expo+Nails+808+Delsea+Dr+N+Glassboro+NJ+08028" target="_blank" rel="noopener">Get Directions</a>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <h2 class="sec-title">Our Services</h2>
+    <p class="sec-sub">Bring an inspiration photo or let our techs create something unique for you — either way, you leave happy.</p>
+    <div class="services">
+      <div class="card"><div class="icon">💅</div><h3>Gel Manicure</h3><p>Long-lasting gel polish in a huge color library, finished with cuticle care and shine.</p></div>
+      <div class="card"><div class="icon">✨</div><h3>Dip Powder</h3><p>Strong, natural-looking dip manicures — a salon favorite for durability.</p></div>
+      <div class="card"><div class="icon">🦶</div><h3>Spa Pedicure</h3><p>Soak, exfoliation, massage and polish — the full reset for tired feet.</p></div>
+      <div class="card"><div class="icon">💎</div><h3>Gel Pedicure</h3><p>Chip-resistant gel on toes, perfect for sandals season and beyond.</p></div>
+      <div class="card"><div class="icon">🎨</div><h3>Nail Art &amp; Designs</h3><p>Hand-painted art, gems, ombré and seasonal looks by detail-obsessed techs.</p></div>
+      <div class="card"><div class="icon">🔄</div><h3>Refills / Fills</h3><p>Keep your set fresh with quick, careful refills between full appointments.</p></div>
+      <div class="card"><div class="icon">😌</div><h3>Foot Massage</h3><p>Add-on relaxation that regulars swear by — ask your tech.</p></div>
+      <div class="card"><div class="icon">👁️</div><h3>Eyebrow Wax</h3><p>Quick, clean brow shaping while you're in the chair.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="wrap">
+    <div class="facts">
+      <div><div class="num">4.3★</div><div class="lbl">Google rating · 78 reviews</div></div>
+      <div><div class="num">6 days</div><div class="lbl">Open Mon–Sat</div></div>
+      <div><div class="num">~2 min</div><div class="lbl">From your street</div></div>
+      <div><div class="num">100%</div><div class="lbl">Walk-ins welcome</div></div>
+    </div>
+    <blockquote>"Everything is redone, clean, they take their time, do a great job and have a lot of colors to choose from."</blockquote>
+  </div>
+</div>
+
+<section class="menu" id="menu">
+  <div class="wrap">
+    <h2 class="sec-title">Service Menu — In Detail</h2>
+    <p class="sec-sub">Everything we offer, and exactly what's included in each service, so you know what you're booking before you sit down.</p>
+
+    <div class="menu-grid">
+      <div class="menu-cat">
+        <h3>💅 Manicures</h3>
+        <p class="cat-note">Natural nails, gel and dip — from a quick tidy-up to a full set.</p>
+
+        <div class="item">
+          <div class="item-head"><b>Classic Manicure</b><span class="price">Call for price</span></div>
+          <p>The everyday reset for natural nails.</p>
+          <p class="includes"><b>Includes:</b> nail shaping &amp; filing, cuticle care, light hand massage, your choice of regular polish.</p>
+        </div>
+
+        <div class="item">
+          <div class="item-head"><b>Gel Manicure</b><span class="price">Call for price</span></div>
+          <p>Our most popular manicure — color that stays glossy for weeks, not days.</p>
+          <p class="includes"><b>Includes:</b> everything in Classic, plus gel polish cured for a hard, chip-resistant, high-shine finish. Huge color library to choose from.</p>
+        </div>
+
+        <div class="item">
+          <div class="item-head"><b>Dip Powder Manicure</b><span class="price">Call for price</span></div>
+          <p>Strong, natural-feeling nails — a salon favorite for durability.</p>
+          <p class="includes"><b>Includes:</b> shaping &amp; cuticle care, dip powder application in your color, smooth sealed finish. Great if gel alone doesn't last on your nails.</p>
+        </div>
+
+        <div class="item">
+          <div class="item-head"><b>Acrylic Full Set</b><span class="price">Call for price</span></div>
+          <p>Length and shape, built from scratch.</p>
+          <p class="includes"><b>Includes:</b> tips/extensions, acrylic application, your shape — square, coffin, almond, round or stiletto — and regular or gel polish finish.</p>
+        </div>
+
+        <div class="item">
+          <div class="item-head"><b>Refill / Fill</b><span class="price">Call for price</span></div>
+          <p>Keep an acrylic or dip set fresh between full appointments.</p>
+          <p class="includes"><b>Includes:</b> grown-out area rebalanced &amp; refilled, reshaping, repair of lifted areas, fresh color.</p>
+        </div>
+
+        <div class="item">
+          <div class="item-head"><b>Polish Change — Hands</b><span class="price">Call for price</span></div>
+          <p>Just want a new color? Quick in-and-out service.</p>
+          <p class="includes"><b>Includes:</b> old polish removed, light shaping, new regular polish.</p>
+        </div>
+      </div>
+
+      <div class="menu-cat">
+        <h3>🦶 Pedicures</h3>
+        <p class="cat-note">Soak, scrub, massage and polish — the full reset for tired feet.</p>
+
+        <div class="item">
+          <div class="item-head"><b>Classic Spa Pedicure</b><span class="price">Call for price</span></div>
+          <p>Our signature pedicure in the massage chair.</p>
+          <p class="includes"><b>Includes:</b> warm soak, toenail trimming &amp; shaping, cuticle care, callus smoothing, exfoliating scrub, foot &amp; leg massage, hot towel, regular polish.</p>
+        </div>
+
+        <div class="item">
+          <div class="item-head"><b>Gel Pedicure</b><span class="price">Call for price</span></div>
+          <p>All the pampering of the spa pedicure, with toes that stay perfect for weeks.</p>
+          <p class="includes"><b>Includes:</b> everything in Classic Spa, plus gel polish on toes — chip-resistant and sandal-ready straight away, no drying time.</p>
+        </div>
+
+        <div class="item">
+          <div class="item-head"><b>Polish Change — Toes</b><span class="price">Call for price</span></div>
+          <p>A fast color refresh between pedicures.</p>
+          <p class="includes"><b>Includes:</b> old polish removed, light shaping, new regular or gel polish.</p>
+        </div>
+
+        <div class="item">
+          <div class="item-head"><b>Foot Massage Add-On</b><span class="price">Ask in salon</span></div>
+          <p>Extra relaxation added to any pedicure — the add-on regulars swear by.</p>
+          <p class="includes"><b>Good for:</b> tired, achy feet and anyone who wants the chair time to last a little longer.</p>
+        </div>
+      </div>
+
+      <div class="menu-cat">
+        <h3>🎨 Nail Art, Add-Ons &amp; Waxing</h3>
+        <p class="cat-note">The finishing touches — bring a photo or let your tech create.</p>
+
+        <div class="item">
+          <div class="item-head"><b>Custom Nail Art &amp; Designs</b><span class="price">By design</span></div>
+          <p>Hand-painted art, seasonal looks and one-of-a-kind sets.</p>
+          <p class="includes"><b>Options:</b> hand-painted designs, gems &amp; rhinestones, ombré, chrome, cat-eye, glitter and French designs. Price depends on the design — show us your inspiration photo for a quote.</p>
+        </div>
+
+        <div class="item">
+          <div class="item-head"><b>French Tips</b><span class="price">Add-on</span></div>
+          <p>The classic white-tip finish, added to any manicure or full set.</p>
+        </div>
+
+        <div class="item">
+          <div class="item-head"><b>Nail Repair</b><span class="price">Per nail</span></div>
+          <p>One broken or lifted nail? We can fix a single nail without redoing the whole set.</p>
+        </div>
+
+        <div class="item">
+          <div class="item-head"><b>Soak-Off / Removal</b><span class="price">Ask in salon</span></div>
+          <p>Safe removal of gel, dip or acrylic so your natural nails stay healthy underneath.</p>
+        </div>
+
+        <div class="item">
+          <div class="item-head"><b>Eyebrow Wax</b><span class="price">Call for price</span></div>
+          <p>Quick, clean brow shaping while you're already in the chair.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="menu-note"><b>About prices:</b> final price can vary with nail length, shape and design, so this draft menu shows “call for price” — call <a href="tel:+18562188818">(856) 218-8818</a> for today's pricing, or walk in for a quote. Walk-ins welcome, appointments appreciated.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="sec-title">Visit Us</h2>
+    <p class="sec-sub">In the Doubletree Shopping Center area on Delsea Drive North — free lot parking, wheelchair accessible.</p>
+    <div class="visit">
+      <table class="hours">
+        <tr><th colspan="2">Hours</th></tr>
+        <tr><td>Monday – Friday</td><td>9:30 AM – 7:00 PM</td></tr>
+        <tr><td>Saturday</td><td>9:00 AM – 5:30 PM</td></tr>
+        <tr><td>Sunday</td><td class="closed">Closed</td></tr>
+      </table>
+      <div class="addr">
+        <h3>Expo Nails</h3>
+        <p>808 Delsea Dr N<br>Glassboro, NJ 08028</p>
+        <p>📞 <a href="tel:+18562188818">(856) 218-8818</a><br>
+        📸 <a href="https://www.instagram.com/exponailsnj" target="_blank" rel="noopener">@exponailsnj</a> on Instagram</p>
+        <div class="row">
+          <a class="btn primary" href="tel:+18562188818">Call to Book</a>
+          <a class="btn ghost" href="https://www.google.com/maps/search/?api=1&query=Expo+Nails+808+Delsea+Dr+N+Glassboro+NJ+08028" target="_blank" rel="noopener">Directions</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="insta">
+  <h2>See our latest work</h2>
+  <p>Follow along for new sets, seasonal designs and salon updates.</p>
+  <a class="btn primary" href="https://www.instagram.com/exponailsnj" target="_blank" rel="noopener">📸 @exponailsnj</a>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="note"><b>Draft mockup</b> — a free concept homepage designed by <a href="https://khushee16.github.io/">79 Web Span Studio</a>. Hours, services and contact details sourced from public listings; prices not shown — confirm with the salon.</div>
+    <div>© Expo Nails concept · Glassboro, NJ</div>
+  </div>
+</footer>
+
+</body>
+</html>
