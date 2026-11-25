@@ -87,11 +87,24 @@
         URL.revokeObjectURL(url);
         status.textContent = 'Brief downloaded as a text file.';
       });
+
+      form.addEventListener('submit', function () {
+        var briefField = document.getElementById('briefField');
+        if (briefField) briefField.value = buildBrief();
+      });
+
+      if (new URLSearchParams(window.location.search).get('sent') === '1') {
+        status.textContent = 'Thank you — your brief was sent. We\'ll be in touch.';
+      }
       }
 
       if (contactForm && contactStatus) {
-      contactForm.addEventListener('submit', function (event) {
-        event.preventDefault();
+      if (new URLSearchParams(window.location.search).get('sent') === '1') {
+        contactStatus.textContent = 'Thank you — your inquiry was sent. We\'ll reply soon.';
+      }
+
+      var copyInquiryButton = document.getElementById('copyInquiry');
+      if (copyInquiryButton) copyInquiryButton.addEventListener('click', function () {
         var data = new FormData(contactForm);
         var inquiry = 'PROJECT INQUIRY — 79 WEB SPAN STUDIO\n\n' +
           'Name: ' + data.get('name') + '\n' +

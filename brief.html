@@ -8,10 +8,13 @@ title: Start a brief
           <div class="brief-copy">
             <div class="section-kicker" style="color:#fff;opacity:.8">Project brief builder</div>
             <h2>Turn your idea into a clear starting point.</h2>
-            <p>Choose a few details and get a concise project brief you can copy or download. It stays in this page only and is not submitted anywhere.</p>
+            <p>Choose a few details and get a concise project brief you can copy, download, or send to the studio. It is generated right here in your browser — sending it is your choice.</p>
             <div class="brief-benefit">A useful first brief answers three things:<br>what you need • what it should achieve • how soon you want it</div>
           </div>
-          <form class="brief-form" id="briefForm">
+          <form class="brief-form" id="briefForm" action="https://formsubmit.co/khatri16khushi@gmail.com" method="POST">
+            <input type="hidden" name="_subject" value="New brief — 79 Web Span Studio">
+            <input type="hidden" name="_next" value="https://khushee16.github.io/brief.html?sent=1">
+            <textarea name="brief" id="briefField" hidden></textarea>
             <fieldset>
               <legend>What are you building?</legend>
               <div class="choice-grid">
@@ -43,13 +46,18 @@ title: Start a brief
                 <div><input class="choice-input" type="radio" name="pace" id="paceExplore" value="after an exploratory planning phase"><label class="choice-label" for="paceExplore">Still exploring</label></div>
               </div>
             </fieldset>
+            <div class="form-field">
+              <label for="briefEmail">Your email (optional, so we can reply)</label>
+              <input class="form-control-studio" id="briefEmail" name="email" type="email" autocomplete="email" aria-label="Your email (optional, so we can reply)">
+            </div>
             <div class="brief-output" id="briefOutput" aria-live="polite"></div>
             <div class="brief-actions">
+              <button type="submit" class="brief-action">Send brief</button>
               <button type="button" class="brief-action" id="copyBrief">Copy brief</button>
               <button type="button" class="brief-action" id="downloadBrief">Download .txt</button>
             </div>
             <p class="copy-status" id="copyStatus" role="status"></p>
-            <p class="brief-note reveal">Your call — the brief is generated right here in your browser. Nothing is sent anywhere until you choose to share it.</p>
+            <p class="brief-note reveal">Your call — the brief is generated right here in your browser. Send it to the studio, or copy or download it instead.</p>
           </form>
         </div>
       </div>

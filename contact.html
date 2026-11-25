@@ -18,7 +18,9 @@ title: Contact
             </div>
             <div class="contact-details">Landing pages • business websites • web apps<br>WordPress • contact forms • launch • maintenance</div>
           </div>
-          <form class="contact-form" id="contactForm">
+          <form class="contact-form" id="contactForm" action="https://formsubmit.co/khatri16khushi@gmail.com" method="POST">
+            <input type="hidden" name="_subject" value="New inquiry — 79 Web Span Studio">
+            <input type="hidden" name="_next" value="https://khushee16.github.io/contact.html?sent=1">
             <div class="form-grid">
               <div class="form-field">
                 <label for="contactName">Your name</label>
@@ -56,8 +58,9 @@ title: Contact
               </div>
             </div>
             <div class="contact-actions">
-              <button class="contact-submit" type="submit">Copy inquiry</button>
-              <p class="contact-note">Your details stay in this page. Copy the inquiry to share through your preferred contact channel.</p>
+              <button class="contact-submit" type="submit">Send inquiry</button>
+              <button class="contact-submit" type="button" id="copyInquiry">Copy inquiry instead</button>
+              <p class="contact-note">Sending the form emails your inquiry to the studio. Prefer to share it yourself? Use "Copy inquiry instead" and paste it into your preferred contact channel.</p>
             </div>
             <p class="contact-status" id="contactStatus" role="status" aria-live="polite"></p>
           </form>

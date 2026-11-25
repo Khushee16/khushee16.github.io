@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">79 Web Span Studio logo</title>
+  <desc id="desc">A dark rounded square with coral and aqua brackets surrounding the number 79.</desc>
+  <rect width="64" height="64" rx="15" fill="#0B1628"/>
+  <path d="M19 18 10 32l9 14" fill="none" stroke="#53D6D0" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="m45 18 9 14-9 14" fill="none" stroke="#FF6347" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="32" y="38" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="800" fill="#FFFFFF">79</text>
+</svg>
