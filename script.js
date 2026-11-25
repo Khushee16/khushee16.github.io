@@ -88,9 +88,28 @@
         status.textContent = 'Brief downloaded as a text file.';
       });
 
-      form.addEventListener('submit', function () {
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
         var briefField = document.getElementById('briefField');
         if (briefField) briefField.value = buildBrief();
+        var submitButton = form.querySelector('button[type="submit"]');
+        if (submitButton) submitButton.disabled = true;
+        status.textContent = 'Sending your brief…';
+        fetch('https://formsubmit.co/ajax/khatri16khushi@gmail.com', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: new FormData(form)
+        }).then(function (response) { return response.json(); }).then(function (data) {
+          if (data && data.success === 'true') {
+            window.location.href = 'brief.html?sent=1';
+          } else {
+            if (submitButton) submitButton.disabled = false;
+            status.textContent = 'Sending failed — please try again, or copy the brief instead.';
+          }
+        }).catch(function () {
+          if (submitButton) submitButton.disabled = false;
+          status.textContent = 'Sending failed — please try again, or copy the brief instead.';
+        });
       });
 
       if (new URLSearchParams(window.location.search).get('sent') === '1') {
