@@ -94,6 +94,7 @@
         if (briefField) briefField.value = buildBrief();
         var submitButton = form.querySelector('button[type="submit"]');
         if (submitButton) submitButton.disabled = true;
+        form.setAttribute('aria-busy', 'true');
         status.textContent = 'Sending your brief…';
         fetch('https://formsubmit.co/ajax/79webspanstudio@gmail.com', {
           method: 'POST',
@@ -104,10 +105,12 @@
             window.location.href = 'brief.html?sent=1';
           } else {
             if (submitButton) submitButton.disabled = false;
+            form.removeAttribute('aria-busy');
             status.textContent = 'Sending failed — please try again, or copy the brief instead.';
           }
         }).catch(function () {
           if (submitButton) submitButton.disabled = false;
+          form.removeAttribute('aria-busy');
           status.textContent = 'Sending failed — please try again, or copy the brief instead.';
         });
       });
@@ -153,31 +156,65 @@
       });
       }
 
+      var siteNav = document.querySelector('.studio-nav');
+      var progressTicking = false;
       function updateProgress() {
+        progressTicking = false;
         var doc = document.documentElement;
         var max = doc.scrollHeight - doc.clientHeight;
-        progress.style.width = (max > 0 ? (doc.scrollTop / max) * 100 : 0) + '%';
+        if (progress) progress.style.width = (max > 0 ? (doc.scrollTop / max) * 100 : 0) + '%';
+        if (siteNav) siteNav.classList.toggle('is-scrolled', doc.scrollTop > 8);
       }
-      document.addEventListener('scroll', updateProgress, { passive: true });
+      function requestProgress() {
+        if (!progressTicking) {
+          progressTicking = true;
+          window.requestAnimationFrame(updateProgress);
+        }
+      }
+      document.addEventListener('scroll', requestProgress, { passive: true });
+      window.addEventListener('resize', requestProgress, { passive: true });
       updateProgress();
 
-      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+      var reduceMotion = motionQuery.matches;
       var reveals = document.querySelectorAll('.reveal');
+      /* Stagger siblings slightly so grouped cards cascade in. */
+      reveals.forEach(function (el) {
+        var siblings = el.parentElement ? el.parentElement.querySelectorAll(':scope > .reveal') : [];
+        var index = Array.prototype.indexOf.call(siblings, el);
+        if (index > 0) el.style.setProperty('--reveal-delay', Math.min(index * 70, 350) + 'ms');
+      });
+      function showAllReveals() {
+        document.documentElement.classList.remove('motion-ready');
+        reveals.forEach(function (el) { el.classList.add('is-visible'); });
+      }
       if (!reduceMotion && ('IntersectionObserver' in window)) {
         document.documentElement.classList.add('motion-ready');
       }
       if (reduceMotion || !('IntersectionObserver' in window)) {
-        reveals.forEach(function (el) { el.classList.add('is-visible'); });
+        showAllReveals();
       } else {
         var observer = new IntersectionObserver(function (entries) {
           entries.forEach(function (entry) {
             if (entry.isIntersecting) {
-              entry.target.classList.add('is-visible');
-              observer.unobserve(entry.target);
+              var target = entry.target;
+              target.classList.add('is-visible');
+              observer.unobserve(target);
+              var delay = parseInt(target.style.getPropertyValue('--reveal-delay'), 10) || 0;
+              window.setTimeout(function () {
+                target.style.removeProperty('--reveal-delay');
+                target.classList.add('is-settled');
+              }, delay + 700);
             }
           });
-        }, { threshold: .12 });
+        }, { threshold: .08, rootMargin: '0px 0px -6% 0px' });
         reveals.forEach(function (el) { observer.observe(el); });
+        /* If the user turns reduced motion on mid-visit, reveal everything. */
+        if (motionQuery.addEventListener) {
+          motionQuery.addEventListener('change', function (event) {
+            if (event.matches) { observer.disconnect(); showAllReveals(); }
+          });
+        }
       }
 
       /* Full-screen mobile menu: instant open/close, no Bootstrap height
