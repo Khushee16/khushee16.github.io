@@ -575,6 +575,44 @@
       .brief-shell, .contact-shell { grid-template-columns: 1fr; }
     }
 
+    /* Full-screen mobile menu. When open, the menu covers the whole
+       screen (no page content peeking through), scrolls on its own,
+       and opens/closes instantly — no height animation. */
+    @media (max-width: 991.98px) {
+      .navbar-collapse.collapsing { transition: none !important; height: auto !important; }
+      html.nav-open, body.nav-open { overflow: hidden; }
+      body.nav-open #siteNav,
+      #siteNav.show {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 1001;
+        min-height: 100dvh;
+        background: var(--bg);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+        padding: calc(66px + 1.25rem) 1.25rem 3rem;
+      }
+      body.nav-open #siteNav .navbar-nav,
+      #siteNav.show .navbar-nav { gap: .25rem; }
+      body.nav-open #siteNav .nav-link,
+      #siteNav.show .nav-link { font-size: 1.35rem; padding: .85rem .25rem !important; }
+      /* Keep the header controls above the overlay so the close button stays usable. */
+      body.nav-open .nav-brand,
+      body.nav-open .navbar-toggler,
+      body.nav-open .theme-toggle { position: relative; z-index: 1002; }
+      /* Hamburger turns into a close (×) while the menu is open. */
+      body.nav-open .navbar-toggler svg { display: none; }
+      body.nav-open .navbar-toggler::after {
+        content: "✕";
+        display: block;
+        font-size: 1.3rem;
+        line-height: 1;
+        color: var(--ink);
+      }
+    }
+
     @media (max-width: 767.98px) {
       body { background-size: 44px 44px; }
       .hero { padding-top: 3rem; }

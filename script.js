@@ -148,13 +148,39 @@
         reveals.forEach(function (el) { observer.observe(el); });
       }
 
+      /* Full-screen mobile menu: instant open/close, no Bootstrap height
+         animation. The toggler is taken over on small screens so the menu
+         opens as a fixed full-page overlay instead of an in-flow panel. */
       var menuButton = document.querySelector('.navbar-toggler');
       var menu = document.getElementById('siteNav');
-      if (menuButton && menu && !window.bootstrap) {
-        menuButton.addEventListener('click', function () {
-          var open = menu.classList.toggle('show');
-          menuButton.setAttribute('aria-expanded', open ? 'true' : 'false');
+      var mqMobile = window.matchMedia('(max-width: 991.98px)');
+      function setMenu(open) {
+        if (menu) menu.classList.toggle('show', open);
+        document.body.classList.toggle('nav-open', open);
+        document.documentElement.classList.toggle('nav-open', open);
+        if (menuButton) menuButton.setAttribute('aria-expanded', open ? 'true' : 'false');
+      }
+      function isMenuOpen() {
+        return (menu && menu.classList.contains('show')) || document.body.classList.contains('nav-open');
+      }
+      if (menuButton && menu) {
+        menuButton.addEventListener('click', function (event) {
+          if (!mqMobile.matches) return; /* desktop: toggler is hidden anyway */
+          if (window.bootstrap) event.stopPropagation(); /* keep Bootstrap's slow collapse animation out of it */
+          setMenu(!isMenuOpen());
         });
+        document.addEventListener('keydown', function (event) {
+          if (event.key === 'Escape') setMenu(false);
+        });
+        mqMobile.addEventListener('change', function () {
+          if (!mqMobile.matches) setMenu(false);
+        });
+        document.querySelectorAll('#siteNav a').forEach(function (link) {
+          link.addEventListener('click', function () { setMenu(false); });
+        });
+      }
+
+      if (!window.bootstrap) {
         document.querySelectorAll('[data-bs-toggle="collapse"]').forEach(function (button) {
           if (button === menuButton) return;
           button.addEventListener('click', function () {
@@ -180,19 +206,6 @@
           });
         });
       }
-
-      document.querySelectorAll('#siteNav a').forEach(function (link) {
-        link.addEventListener('click', function () {
-          if (menu.classList.contains('show')) {
-            if (window.bootstrap) {
-              bootstrap.Collapse.getOrCreateInstance(menu).hide();
-            } else {
-              menu.classList.remove('show');
-              menuButton.setAttribute('aria-expanded', 'false');
-            }
-          }
-        });
-      });
 
   }
 
