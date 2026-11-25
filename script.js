@@ -95,7 +95,7 @@
         var submitButton = form.querySelector('button[type="submit"]');
         if (submitButton) submitButton.disabled = true;
         status.textContent = 'Sending your brief…';
-        fetch('https://formsubmit.co/ajax/khatri16khushi@gmail.com', {
+        fetch('https://formsubmit.co/ajax/79webspanstudio@gmail.com', {
           method: 'POST',
           headers: { 'Accept': 'application/json' },
           body: new FormData(form)
